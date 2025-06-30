@@ -1,0 +1,25 @@
+Backend structure :
+project/
+├── index.js          👉 Starts the server, loads routes
+├── routes/
+│   └── auth.js       👉 Handles /login route
+├── controllers/
+│   └── authController.js 👉 Contains login logic
+
+--------------------------------------------------------------
+Initial Things to do :
+
+Initialise package.json:
+npm init -y
+
+Install Express and Nodemon :
+npm install express
+npm install -g nodemon  // nice server 
+
+To run Server or Any File:
+nodemon index.js
+
+Add this in package.json to make the project as ES6:
+"type": "module"    
+
+--------------------------------------------------------------
