@@ -6,7 +6,7 @@ const user = {
 };
 
 export const loginUser = (req, res) => {
-  const { userId, password } = req.body; // this req.body is easily basscesible because of app.use(express.json())
+  const { userId, password } = req.body; // this req.body is easily asscesible because of app.use(express.json()) and gets destructured here
 
   if (userId === user.userId && password === user.password) {
     res.status(200).json({ message: 'Login successful' });

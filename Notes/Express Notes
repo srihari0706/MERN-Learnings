@@ -23,3 +23,9 @@ Add this in package.json to make the project as ES6:
 "type": "module"    
 
 --------------------------------------------------------------
+Returing in a api :
+1, Returning API data    =>	res.status().json({...})
+2, Sending plain text    =>	res.send("text")
+3, Sending HTML          =>	res.send("<h1>Hello</h1>")
+4, Ending response early =>	res.sendStatus(404)
+--------------------------------------------------------------
