@@ -33,9 +33,75 @@ COLLECTION : Its a group of 1 or more documents
 
 3,
 DATABASE : Its a group of 1 or more collections
+
+SIMPLE TERMS relation to SQL :
+SQL   Mongo
+Rows  Documents
+table Collection
+--------------------------------------------------------------------
+Data types in mongo DB :
+1,Strings => can be "" or ''
+2,Integer => only stores intgers not a decimal
+3,double => stores only decimals
+4,booleans => true , false
+5,dateObjects => This is date object :
+               this is done by  
+               1, new Date() => if no params that takes the current time in UTC
+               2, new Date(2023-01-30T00:00:00) => u can also pass params // UTC
+6,null => no value , just has a placeholder which can be inserted later
+7,arrays => just a normal js array [1,2,3]
+8,nexted Documents => this is a object in js ie, {}.
+
+usage example
+({ name : "sri", age : 100, cgpa : 8.9, isHostel : false, dob : new Date(2003-07-06), courses : ['js','ts','mern'], address : { streeet :"gandhi", pin : "641001"}})
+--------------------------------------------------------------------
+FIND : (methods are in the bottom of this notes)
+   Syntax : db.collectionName.find({query} , {projection})
+=> find is used to find a document as the name sugest and it has 2 parameters
+   1, what to find (query)
+   2, what are the values u need to return (projection)
+   db.students.find({what to find} , {what values should be returned})
+
+eg :  db.students.find({} , {name : true}) 
+      => this returns all value names with ids as a array of jsons in the  students.
+      => if u need only ids use :
+      db.students.find({} , {name : true , _id : false }) 
+      => this finds all of the documents to our query :
+      db.students.find({name : "sri"})
+
+
+Note : 1, If u desnt pass what values need that will give u the entire object
+       2, 0 denoted false and 1 denotes true
+--------------------------------------------------------------------
+UPDATE : (methods are in the bottom of this notes)
+    Syntax : db.collectionName.updateOne({filter} , {what to update})
+    here => query : where to update and the 2nd curly is what to update
+    eg :
+    db.students.updateOne({name : 'sri'} , {$set:{age : 11}}) 
+    => the above updates 1 doc if u need to update many use updateMany
+    db.students.updateMany({name : 'sri'} , {$set:{age : 11}}) 
+
+    You can also update multiple fields by :
+    * db.students.updateMany({name : 'sri'} , {$set:{age : 11 , city : "chenai"}}) 
+    * if theres many documents that u have serached but u entered updateOne , it find only the first document and update it
+
+    
+    => set is used to set a new value or use to update the old value 
+    => unset is used to remove the key in that document
+    unset EG :
+    db.students.updateOne( {_id : ObjectId('6863b878ba43914395748a60')}, { $unset:{isMass : ''}}) 
+
+    Note : On the above u can give value any thing , but mongo ignores that value , so best practive is to keep the value empty while unseting
+
+    => To update all docs use :
+    db.students.updateMany({ },{$set:{age : 7}}) 
+
+    => There is also a functionality to set a field if that key is not prensent , ask that in chat gpt 
 --------------------------------------------------------------------
 MQL (similar to querries): NOTE : Response : { ok: 1 } => here 1 : succes ; 0 : failed  
 [NOTE : u can create update delete db , collection , document , insert document , collection  etc (anything) in the MangoDB Compass easily and u can view the db in the compass]
+
+Note : In the below the school is DB , the students is Collection .
 1, To show all the dbs present :
    show dbs
 2, To use a DB  :
@@ -59,3 +125,40 @@ MQL (similar to querries): NOTE : Response : { ok: 1 } => here 1 : succes ; 0 : 
     db.students.insertMany([{name : "ram" , age : 19} , {name : "vimala" , age : 42}])
 7, To return all documents with in a collection :
     db.students.find() => here the students  is the collection
+   To return a doc with specific id :
+     db.students.find({ _id: ObjectId('6864e0d7a483580af4748a5f') })
+8, To sort and get a document :
+    db.sort.find().sort({name : 1})
+    => This sorts by the name in alphabetical asending order 
+    => To sort by descending alphabetical order use -1 
+    => Therefore if 1 asedning for all datatype is 1 and -1 for decending
+9, To limit the number of documents returned in find use :
+    db.students.find().limit(10)
+    => This limits upto 10 documents
+10, To combine both multiple methods use like 
+    db.students.find().sort({name:1}).limit(1)      
+    => This sort the name in ascending gets the first name  
+11, To find a specific document use : (This is similar to where in sql)
+    db.students.find({name : "sri"})
+    => gets the name when its sri . this only sort like using "==" in js.
+    => You can also add multiple filters like  below , this will filter name as sri and age as 100 :
+    db.students.find({name : "sri" , age : 100})
+12, To know more about this see the top sub heading 'FIND'
+    Find also allows u to select a particular value to be returned :
+    db.students.find({} , {name : true})
+    => this returns all value names with ids as a array of jsons in the  students.
+    => if u need only ids use :
+    db.students.find({} , {name : true , _id : false })
+13, To update 1 or many Document use :
+    db.students.updateOne({name : 'sri'} , {$set:{age : 11}}) 
+    => the above updates 1 doc if u need to update many use updateMany
+    db.students.updateMany({name : 'sri'} , {$set:{age : 11}}) 
+    => You can also update multiple fields by :
+    db.students.updateMany({name : 'sri'} , {$set:{age : 11 , city : "chenai"}}) 
+14 , To remove a key while update use unset:
+    db.students.updateOne( {_id : ObjectId('6863b878ba43914395748a60')}, { $unset:{isMass : ''}}) 
+15 , To update all docs use :
+    db.students.updateMany({ },{$set:{age : 7}}) 
+
+
+
