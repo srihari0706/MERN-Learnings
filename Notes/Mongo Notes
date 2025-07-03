@@ -98,6 +98,7 @@ UPDATE : (methods are in the bottom of this notes)
 
     => There is also a functionality to set a field if that key is not prensent , ask that in chat gpt 
 --------------------------------------------------------------------
+
 MQL (similar to querries): NOTE : Response : { ok: 1 } => here 1 : succes ; 0 : failed  
 [NOTE : u can create update delete db , collection , document , insert document , collection  etc (anything) in the MangoDB Compass easily and u can view the db in the compass]
 
@@ -159,6 +160,48 @@ Note : In the below the school is DB , the students is Collection .
     db.students.updateOne( {_id : ObjectId('6863b878ba43914395748a60')}, { $unset:{isMass : ''}}) 
 15 , To update all docs use :
     db.students.updateMany({ },{$set:{age : 7}}) 
+16 , Delete a document :
+    db.students.deleteOne({name : 'laryy'})
+    => similarly there is Many to delete muliple documents
+    You can also delete a document which does not have a field in it or vice versa :
+    eg:
+    db.students.deleteMany({isHostel : {$exists : false}}) 
+    => the above deletes a adocument which doesnot have isHostel field
+
+
+--------------------------------------------------------------------
+Operators  :
+=> Operators are denoted with $ sign 
+Some Operators :
+1, set 
+2, unset 
+3, exists
+    db.students.deleteMany({isHostel : {$exists : false}}) 
+Conditional Operators :
+4, ne => not equal
+    db.students.find({name : {$ne : 'sri1'}})
+5, lt => less than . 
+    db.students.find({age : {$lt : 4}})
+6, lte => less than equal
+7, gt => greater than
+8, gte => greater than equals
+9, Range :(Overloaded Operators)
+    db.students.find({age : {$lt : 4 , $gt:2}}) => this return the docs les than 4 and greter than 3
+10, in => here u give a array of needed and that will returns all matched
+    db.students.find({name : {$in : ['sri2']}})
+11, nin =>(not in) here u give a array of values and that will returns all not matched
+    db.students.find({name : {$in : ['sri2']}})
+Logical Operators : These logical operators must be in a array []
+12, and => normal and operator
+    db.students.find({ $and: [ { class: 10 }, { name: 'sri2' }, { age: { $lte: 2 } } ] })
+13, not => similar to normal not 
+    db.students.find({age : {$not : {$gt : 6} } })
+14, nor => returns the doc if all are false (opposite to and)
+    db.students.find({ $nor: [ { class: 10 }, { name: 'sri2' }, { age: { $lte: 2 } } ] })
+15, or => normal or operator
+    db.students.find({ $or: [ { class: 10 }, { name: 'sri2' }, { age: { $lte: 2 } } ] })
+
+--------------------------------------------------------------------
 
 
 
