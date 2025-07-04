@@ -1,8 +1,10 @@
 import express from 'express';
-import authRoutes from './routes/auth.js';
+import authRoutes from './routes/authRoutes.js';
+import connectDB from './config/db.js';
 
 const app = express();
 const PORT = 5000;
+connectDB();
 
 app.use(express.json());  // this makes to parse it as req.body i e. the json will be easily accesed by the request body
 
