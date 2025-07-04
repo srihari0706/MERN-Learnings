@@ -98,7 +98,26 @@ UPDATE : (methods are in the bottom of this notes)
 
     => There is also a functionality to set a field if that key is not prensent , ask that in chat gpt 
 --------------------------------------------------------------------
-
+Indexes :
+    => Index will be fast for fetching but will be slow for insert ,update ,delete  and also takes a lot of space
+    => _id is a default (static) index in every MongoDB collection. (IMPORTANT)
+    => Normally for fetching documenst mongo will do linear search ie loops the data once . But if u use index that will only find the serached one without linear search , ie fast than before . 
+    => But there is a catch , by adding a lot of index will takes up extra space and also slows down CRUD operations.
+    => The index will be created for all the documents of the given fields in the create index , but if u add a lot of fields then it will slow u the CRUD
+        db.students.createIndex({name : 1}) 
+        OP: name_1 => this name_1 is the index name created 
+        => In the above 1 is to create index in accending and vice versa
+    => To get the indexes use :
+    db.students.getIndexes()
+    => To delete a index use 
+    db.students.dropIndex("indexname")
+--------------------------------------------------------------------
+Collections :
+1, show collections => this shows all the collections
+2, db.createCollection('collectionname', {capped : true , size : 10000000 , max : 100} , {autoIndexId : true} )
+    => here the capped is used to set the ax size of the colections as 10000000 and also the max documents can  be inserted is 100 . then if u give false to the autoIndexId then no _id (index) will be generated
+3, db.collectionname.drop()
+--------------------------------------------------------------------
 MQL (similar to querries): NOTE : Response : { ok: 1 } => here 1 : succes ; 0 : failed  
 [NOTE : u can create update delete db , collection , document , insert document , collection  etc (anything) in the MangoDB Compass easily and u can view the db in the compass]
 
@@ -167,6 +186,8 @@ Note : In the below the school is DB , the students is Collection .
     eg:
     db.students.deleteMany({isHostel : {$exists : false}}) 
     => the above deletes a adocument which doesnot have isHostel field
+17 , To get the execution stats use :
+    db.students.find().explain('executionStats)
 
 
 --------------------------------------------------------------------
