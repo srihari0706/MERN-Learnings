@@ -23,9 +23,10 @@ export const createUser = async (req, res) => {
 
 export const checkUser = async (req, res) => {
   try {
-    const users = await UserList.find({ name: req.body.name, pass: req.body.pass }); // fetches all documents
+    const { name, pass } = req.body; // destructring
+    const users = await UserList.find({ name: name, pass: pass }); // fetches all documents
     // console.log("USERS", users)
-    if (users.length != 0) {
+    if (users.length != 0 && users[0].pass == pass) {
       res.json({ success: true, message: "Logged in successfully" });
       return
     }
@@ -42,3 +43,4 @@ export const checkUser = async (req, res) => {
     res.status(500).json(respJson);
   }
 };
+

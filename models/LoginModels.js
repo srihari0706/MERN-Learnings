@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const UserListSchema = new mongoose.Schema({
-    name: String,
-    pass: String
+    name:  { type: String, required: true },
+    pass:  { type: String, required: true }
 });
 
 

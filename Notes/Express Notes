@@ -29,13 +29,6 @@ Add this in package.json to make the project as ES6:
 "type": "module"    
 
 --------------------------------------------------------------
-Returing in a api :
-1, Returning API data    =>	res.status().json({...})
-2, Sending plain text    =>	res.send("text")
-3, Sending HTML          =>	res.send("<h1>Hello</h1>")
-4, Ending response early =>	res.sendStatus(404)
-5, To just send Json     => res.json({ message: "Hello, Sri!" });
---------------------------------------------------------------
 Mongoose :
 => used for connecting to DB (MONGO) :
 => use mongoose to conect to db and thats simple refer code config/db
@@ -57,4 +50,23 @@ const UserList = mongoose.model('UserList', UserListSchema , 'Users');
      The first UserList is the alias name for that collection choosen 
      Second is the schema 
      Third is the collection that to be used
+--------------------------------------------------------------
+✅ Express Request Object Essentials: IMPORTANT
+Property	  Description
+req.headers	  ✅ Gets all headers (like Authorization, Content-Type, etc.)
+req.body	  ✅ Gets the request body (POST, PUT, etc.) – needs middleware like express.json()
+req.query	  ✅ Gets URL query params like ?name=Sri&age=25
+req.params	  Gets dynamic route params like /users/:id
+req.url	      The full URL path (e.g., /users/123?name=Sri)
+req.path	  Only the path (e.g., /users/123)
+req.method	  The HTTP method (GET, POST, PUT, DELETE, etc.)
+req.cookies	  Cookies (if using cookie-parser middleware)
+req.ip	      IP address of the client
+--------------------------------------------------------------
+Returing in a api :
+1, Returning API data    =>	res.status().json({...})
+2, Sending plain text    =>	res.send("text")
+3, Sending HTML          =>	res.send("<h1>Hello</h1>")
+4, Ending response early =>	res.sendStatus(404)
+5, To just send Json     => res.json({ message: "Hello, Sri!" });
 --------------------------------------------------------------
